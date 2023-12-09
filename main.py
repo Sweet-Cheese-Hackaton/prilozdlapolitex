@@ -58,7 +58,7 @@ class ApplicationGUI(QMainWindow):
 
         self.application_system = ApplicationSystem()
 
-        # Create and set up tabs
+        
         self.tabs = QTabWidget(self)
         self.applicant_tab = QWidget()
         self.dormitory_tab = QWidget()
@@ -66,19 +66,19 @@ class ApplicationGUI(QMainWindow):
         self.tabs.addTab(self.dormitory_tab, "Общежитие")
         self.setCentralWidget(self.tabs)
 
-        # Set tab styles
+        
         self.tabs.setStyleSheet("""
             QTabBar::tab:selected {
                 background-color: #4CAF50; /* Green */
             }
         """)
 
-        # Applicant tab
+       
         self.applicant_tree = QTreeWidget(self.applicant_tab)
-        self.applicant_tree.setColumnCount(4)  # Increased column count for total score
+        self.applicant_tree.setColumnCount(4)  
         self.applicant_tree.setHeaderLabels(["ID", "Имя", "Результаты экзаменов", "Баллы"])
 
-        # Apply styles to the tree widget
+       
         self.applicant_tree.setStyleSheet("""
             QTreeWidget {
                 border-radius: 10px; /* Rounded corners */
@@ -88,7 +88,7 @@ class ApplicationGUI(QMainWindow):
         self.applicant_tab_layout = QVBoxLayout(self.applicant_tab)
         self.applicant_tab_layout.addWidget(self.applicant_tree)
 
-        # Create a horizontal layout for buttons
+        
         button_layout = QHBoxLayout()
 
         self.add_applicant_button = QPushButton("Добавить абитуриента", self.applicant_tab)
@@ -99,10 +99,10 @@ class ApplicationGUI(QMainWindow):
         self.update_scores_button.clicked.connect(self.update_scores)
         button_layout.addWidget(self.update_scores_button)
 
-        # Add the button layout to the main layout
+   
         self.applicant_tab_layout.addLayout(button_layout)
 
-        # Dormitory tab
+      
         self.room_count_label = QLabel(f"Количество комнат: {self.application_system.dormitory.room_count}", self.dormitory_tab)
         self.amenities_label = QLabel(f"Удобства: {self.application_system.dormitory.amenities}", self.dormitory_tab)
         self.location_label = QLabel(f"Расположение: {self.application_system.dormitory.location}", self.dormitory_tab)
@@ -114,24 +114,24 @@ class ApplicationGUI(QMainWindow):
 
         self.update_applicant_tree()
 
-        # Apply styles to the buttons
+       
         self.setStyleSheet("""
             QPushButton {
-                background-color: #4CAF50; /* Green */
+                background-color: #4CAF50; 
                 border: none;
                 color: white;
-                padding: 20px 40px; /* Increased padding for larger buttons */
+                padding: 20px 40px; 
                 text-align: center;
                 text-decoration: none;
                 display: inline-block;
-                font-size: 24px; /* Increased font size for larger text */
-                margin: 10px 5px; /* Increased margin */
+                font-size: 24px; 
+                margin: 10px 5px; 
                 cursor: pointer;
-                border-radius: 20px; /* Increased border radius for rounded corners */
+                border-radius: 20px; 
             }
         """)
 
-        # Increase font size for labels
+        
         font = QFont()
         font.setPointSize(18)
         self.room_count_label.setFont(font)
@@ -148,7 +148,7 @@ class ApplicationGUI(QMainWindow):
             exam_results_str = form.exam_results_edit.text()
             total_score_str = form.total_score_edit.text()
 
-            # Convert the comma-separated string to a list of integers
+           
             exam_results = [int(score.strip()) for score in exam_results_str.split(',')]
             total_score = int(total_score_str)
 
@@ -156,7 +156,7 @@ class ApplicationGUI(QMainWindow):
             self.application_system.add_applicant(new_applicant)
             self.update_applicant_tree()
 
-        form.deleteLater()  # Ensure the form is deleted to prevent memory leaks
+        form.deleteLater()  
 
     def update_scores(self):
         self.application_system.update_total_scores()
@@ -172,6 +172,6 @@ class ApplicationGUI(QMainWindow):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = ApplicationGUI()
-    window.resize(1200, 800)  # Установите размер приложения на ваш выбор
+    window.resize(1200, 800)  
     window.show()
     sys.exit(app.exec_())
